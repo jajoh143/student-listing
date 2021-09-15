@@ -1,29 +1,30 @@
-﻿namespace student_listing.Models
+﻿using System.Runtime.Serialization;
+
+namespace student_listing.Web.Controllers.Student.Models
 {
     /// <summary>
-    /// Course
+    /// CourseItem
     /// </summary>
-    public class Course
+    public class CourseItem
     {
         /// <summary>
-        /// Id
+        /// Course Id
         /// </summary>
-        public int Id { get; set; }
-
+        public int CourseId { get; set; }
+        
         /// <summary>
-        /// Name
+        /// Course Name
         /// </summary>
-        public string Name { get; set; }
-
+        public string CourseName { get; set; }
+        
         /// <summary>
         /// Description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// CreditHours
+        /// Credit Hours
         /// </summary>
         public int CreditHours { get; set; }
     }
-
 }

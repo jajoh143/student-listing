@@ -1,28 +1,26 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
-using student_listing.Data.DataContext;
-using student_listing.Data.Models;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace student_listing.Data.Features
+namespace student_listing.Data.DAL.Course
 {
-    public class StudentDataAccess : IStudentDataAccess
+    public class CourseDataAccess : ICourseDataAccess
     {
         private readonly IConfiguration _configuration;
 
-        public StudentDataAccess(IConfiguration configuration)
+        public CourseDataAccess(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        
-        public async Task<IEnumerable<Models.Student>> GetStudents()
+
+        /// <summary>
+        /// Retrieves a list of courses from the database
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Models.Course>> GetCourses()
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
             {
@@ -41,7 +39,7 @@ namespace student_listing.Data.Features
                     GROUP BY s.StudentId, s.FirstName, s.LastName, s.Email
                     ORDER BY s.LastName, s.FirstName;";
 
-                return await db.QueryAsync<Student>(sql);
+                return await db.QueryAsync<Models.Course>(sql);
             }
         }
     }

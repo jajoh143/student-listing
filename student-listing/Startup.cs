@@ -6,8 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using student_listing.Business.Course;
 using student_listing.Business.Student;
 using student_listing.Data;
+using student_listing.Data.DAL.Course;
 using student_listing.Data.DataContext;
 using student_listing.Data.Features;
 using student_listing.Models;
@@ -42,6 +44,9 @@ namespace student_listing
 
             services.AddTransient<IStudentDataAccess, StudentDataAccess>();
             services.AddTransient<IStudentBusiness, StudentBusiness>();
+
+            services.AddTransient<ICourseDataAccess, CourseDataAccess>();
+            services.AddTransient<ICourseBusiness, CourseBusiness>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

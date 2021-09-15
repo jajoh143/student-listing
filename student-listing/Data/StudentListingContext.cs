@@ -12,7 +12,7 @@ namespace student_listing.Data.DataContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\Sql2016;Database=StudentListing;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=.\Sql2016;Database=StudentListingDb;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

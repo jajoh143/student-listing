@@ -20,19 +20,7 @@ namespace student_listing.Data.DAL
 
             List<student_listing.Models.Registration> registrations = new List<student_listing.Models.Registration>(registrationDataContext.Count);
 
-            foreach(Registration registration in registrationDataContext)
-            {
-                registrations.Add(new student_listing.Models.Registration
-                {
-                    Id = registration.Id,
-                    CourseId = registration.CourseId,
-                    CourseName = registration.Course.Name,
-                    StudentId = registration.StudentId,
-                    GradeId = registration.GradeId,
-                    GradeScore = registration.Grade.Score,
-                    GradeLetter = registration.Grade.Letter
-                });
-            }
+            
 
             return registrations;        
         }

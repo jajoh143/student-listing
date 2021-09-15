@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Cum. GPA</th>
+      <th>Courses (Listed)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courseList">
+      {{course}}
+    </tr>
+  </tbody>
+</table>

@@ -8,14 +8,17 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { StudentListComponent } from './student-list/student-list.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CommonModule } from '@angular/common';
 import { studentReducer } from './store/student/student.reducer';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentListComponent,
+    SearchBarComponent,
     FetchDataComponent
   ],
   imports: [
@@ -24,6 +27,20 @@ import { studentReducer } from './store/student/student.reducer';
     FormsModule,
     CommonModule,
     ApiAuthorizationModule,
+    RouterModule.forRoot([
+      {
+        path: "",
+        component: StudentListComponent
+      },
+      {
+        path: "/students",
+        component: StudentListComponent
+      },
+      {
+        path: "/courseS",
+        component: CourseListComponent
+      }
+    ]),
     StoreModule.forRoot({ students: studentReducer })
   ],
   providers: [

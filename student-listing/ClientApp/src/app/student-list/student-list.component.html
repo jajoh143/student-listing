@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>First Name</th>
@@ -23,11 +23,8 @@
         {{student.cumulativeGpa}}
       </td>
       <td>
-        <p *ngIf="student.courses.length > 0">
-          {{getGradeList(student.courses)}}
-        </p>
+        {{student.courses}}
       </td>
     </tr>
   </tbody>
 </table>
-{{students}}

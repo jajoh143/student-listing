@@ -28,13 +28,13 @@ namespace student_listing.Models
         public string Email { get; set; }
         
         /// <summary>
-        /// Registrations
+        /// Courses
         /// </summary>
-        public List<Registration> Registrations { get; set; }
+       public string Courses { get; set; }
 
         /// <summary>
         /// Cumulative GPA - average of scores across registered courses for the student
         /// </summary>
-        public int CumulativeGpa { get; set; }
+        public decimal CumulativeGpa { get; set; }
     }
 }

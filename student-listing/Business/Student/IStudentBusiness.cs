@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace student_listing.Business.Student
 {
@@ -8,6 +9,6 @@ namespace student_listing.Business.Student
         /// GetStudentList
         /// </summary>
         /// <returns>Returns a list of all students</returns>
-        List<Models.Student> GetStudentList();
+        Task<List<Models.Student>> GetStudentList();
     }
 }

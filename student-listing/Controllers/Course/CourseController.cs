@@ -10,14 +10,14 @@ namespace student_listing.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class CourseController : ControllerBase
     {
         /// <summary>
         /// Student Business
         /// </summary>
         private IStudentBusiness _studentBusiness { get; set; }
 
-        public StudentController(IStudentBusiness studentBusiness)
+        public CourseController(IStudentBusiness studentBusiness)
         {
             _studentBusiness = studentBusiness;
         }
