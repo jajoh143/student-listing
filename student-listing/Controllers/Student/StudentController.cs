@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using student_listing.Business.Student;
+using student_listing.Business.StudentBusiness;
 using student_listing.Web.Controllers.Student.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +25,8 @@ namespace student_listing.Controllers
         [HttpGet]
         public async Task<ActionResult<GetStudentList>> Get()
         {
-            List<Models.Student> students = await _studentBusiness.GetStudentList();
-            StudentCollection studentCollection = new StudentCollection(students.Count);
+            IEnumerable<Models.Student> students = await _studentBusiness.GetStudentList();
+            StudentCollection studentCollection = new StudentCollection(students.Count());
 
             foreach(Models.Student student in students)
             {

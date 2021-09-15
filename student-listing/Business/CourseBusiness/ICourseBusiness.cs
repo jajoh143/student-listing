@@ -1,9 +1,10 @@
-﻿using System;
+﻿using student_listing.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace student_listing.Business.Course
+namespace student_listing.Business.CourseBusiness
 {
     public interface ICourseBusiness
     {
@@ -11,6 +12,6 @@ namespace student_listing.Business.Course
         /// GetStudentList
         /// </summary>
         /// <returns>Returns a list of all students</returns>
-        Task<List<Models.Course>> GetCourseList();
+        Task<IEnumerable<Course>> GetCourseList();
     }
 }

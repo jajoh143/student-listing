@@ -12,6 +12,6 @@ export class SearchBarComponent {
   constructor(private store: Store) { }
 
   public search(): void {
-   
+    console.log(this.searchTerm);
   }
 }

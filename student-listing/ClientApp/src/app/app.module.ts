@@ -11,14 +11,17 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CommonModule } from '@angular/common';
-import { studentReducer } from './store/student/student.reducer';
+import { studentReducer } from './store/student.reducer';
 import { RouterModule } from '@angular/router';
+import { CourseListComponent } from './course-list/course-list.component';
+import { courseReducer } from './store/course.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentListComponent,
     SearchBarComponent,
+    CourseListComponent,
     FetchDataComponent
   ],
   imports: [
@@ -33,15 +36,15 @@ import { RouterModule } from '@angular/router';
         component: StudentListComponent
       },
       {
-        path: "/students",
+        path: "students",
         component: StudentListComponent
       },
       {
-        path: "/courseS",
+        path: "courses",
         component: CourseListComponent
       }
     ]),
-    StoreModule.forRoot({ students: studentReducer })
+    StoreModule.forRoot({ students: studentReducer, courses: courseReducer })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

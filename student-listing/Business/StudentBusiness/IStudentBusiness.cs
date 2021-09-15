@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using student_listing.Models;
 
-namespace student_listing.Business.Student
+namespace student_listing.Business.StudentBusiness
 {
     public interface IStudentBusiness
     {
@@ -9,6 +10,6 @@ namespace student_listing.Business.Student
         /// GetStudentList
         /// </summary>
         /// <returns>Returns a list of all students</returns>
-        Task<List<Models.Student>> GetStudentList();
+        Task<IEnumerable<Student>> GetStudentList();
     }
 }

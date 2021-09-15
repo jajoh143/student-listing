@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { IGetStudentsResult } from '../services/models/get-students-result';
-import { IStudent } from '../store/student/models/student.model';
+import { Store } from '@ngrx/store';
+import { getStudents } from '../store/app.selectors';
+import { IStudent } from '../store/models/student.model';
 
 @Component({
   selector: 'app-student-list',
@@ -10,10 +11,9 @@ export class StudentListComponent {
 
   public studentList: IStudent[] = [];
 
-  @Input()
-  public set students(students) {
-    this.studentList = students.students;    
+  constructor(private store: Store) {
+    this.store.select(getStudents).subscribe((students:any) => {
+      this.studentList = students.students;
+    });
   }
-
-
 }

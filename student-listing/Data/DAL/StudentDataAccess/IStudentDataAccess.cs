@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using student_listing.Data.Models;
+using student_listing.Models;
 
-namespace student_listing.Data.Features
+namespace student_listing.Data.DAL.StudentDataAccess
 {
     public interface IStudentDataAccess
     {

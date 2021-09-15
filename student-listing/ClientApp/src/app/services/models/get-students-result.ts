@@ -1,4 +1,4 @@
-import { IStudent } from "../../store/student/models/student.model";
+import { IStudent } from "../../store/models/student.model";
 
 /**
  * IGetStudentResult

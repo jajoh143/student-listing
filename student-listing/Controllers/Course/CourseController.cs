@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using student_listing.Business.Student;
+using student_listing.Business.CourseBusiness;
+using student_listing.Models;
 using student_listing.Web.Controllers.Student.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,35 +16,33 @@ namespace student_listing.Controllers
         /// <summary>
         /// Student Business
         /// </summary>
-        private IStudentBusiness _studentBusiness { get; set; }
+        private ICourseBusiness _courseBusiness { get; set; }
 
-        public CourseController(IStudentBusiness studentBusiness)
+        public CourseController(ICourseBusiness courseBusiness)
         {
-            _studentBusiness = studentBusiness;
+            _courseBusiness = courseBusiness;
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetStudentList>> Get()
+        public async Task<ActionResult<GetCourseList>> Get()
         {
-            List<Models.Student> students = await _studentBusiness.GetStudentList();
-            StudentCollection studentCollection = new StudentCollection(students.Count);
+            IEnumerable<Course> courses = await _courseBusiness.GetCourseList();
+            CourseCollection courseCollection = new CourseCollection(courses.Count());
 
-            foreach(Models.Student student in students)
+            foreach(Course course in courses)
             {
-                studentCollection.Add(new StudentItem
+                courseCollection.Add(new CourseItem
                 {
-                    Id = student.Id,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Email = student.Email,
-                    Courses = student.Courses,
-                    CumulativeGpa = student.CumulativeGpa
+                    CourseId = course.CourseId,
+                    CourseName = course.Name,
+                    CreditHours = course.CreditHours,
+                    Description = course.Description
                 });
             }
 
-            return new GetStudentList
+            return new GetCourseList
             {
-                StudentCollection = studentCollection
+                CourseCollection = courseCollection
             };
         }
     }

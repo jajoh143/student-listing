@@ -1,6 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
-import { setStudents } from "./student.actions";
+import { setStudents } from "./app.actions";
 import { IStudent } from "./models/student.model";
+
+export const studentFeatureKey: string = "student";
 
 /**
  * AppState
@@ -9,7 +11,7 @@ export interface IStudentState {
   students: IStudent[];
 }
 
-const initialState: IStudentState = {
+export const initialState: IStudentState = {
   students: []
 };
 

@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using student_listing.Business.Course;
-using student_listing.Business.Student;
+using student_listing.Business.CourseBusiness;
+using student_listing.Business.StudentBusiness;
 using student_listing.Data;
-using student_listing.Data.DAL.Course;
-using student_listing.Data.DataContext;
-using student_listing.Data.Features;
+using student_listing.Data.DAL.CourseDataAccess;
+using student_listing.Data.DAL.StudentDataAccess;
 using student_listing.Models;
 
 namespace student_listing
@@ -31,8 +30,6 @@ namespace student_listing
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDbContext<StudentListingContext>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

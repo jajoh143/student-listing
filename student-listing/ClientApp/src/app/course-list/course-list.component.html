@@ -1,16 +1,26 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Cum. GPA</th>
-      <th>Courses (Listed)</th>
+      <th>Course No.</th>
+      <th>Course Name</th>
+      <th>Description</th>
+      <th>Credit Hours</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let course of courseList">
-      {{course}}
+      <td>
+        {{course.courseId}}
+      </td>
+      <td>
+        {{course.courseName}}
+      </td>
+      <td>
+        {{course.description}}
+      </td>
+      <td>
+        {{course.creditHours}}
+      </td>
     </tr>
   </tbody>
 </table>

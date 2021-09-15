@@ -8,7 +8,7 @@
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int CourseId { get; set; }
 
         /// <summary>
         /// Name

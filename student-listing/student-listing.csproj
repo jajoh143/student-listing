@@ -35,16 +35,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ClientApp\src\app\store\student\models\registration.model.ts">
+    <None Update="ClientApp\src\app\store\app.actions.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\student\models\course.model.ts">
+    <None Update="ClientApp\src\app\store\models\registration.model.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\student\models\student.model.ts">
+    <None Update="ClientApp\src\app\store\models\course.model.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\student\student.actions.ts">
+    <None Update="ClientApp\src\app\store\models\student.model.ts">
       <SubType>Code</SubType>
     </None>
   </ItemGroup>

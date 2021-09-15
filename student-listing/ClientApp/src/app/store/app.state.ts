@@ -1,8 +1,10 @@
-import { IStudentState } from "./student/student.reducer";
+import { IStudent } from "./models/student.model";
+import { ICourse } from "./models/course.model";
 
-/**
- * AppState
- */
-export interface IAppState {
-  studentState: IStudentState
+
+export const appFeatureKey = "app";
+
+export interface AppState {
+  students: Array<IStudent>;
+  courses: Array<ICourse>;
 }
