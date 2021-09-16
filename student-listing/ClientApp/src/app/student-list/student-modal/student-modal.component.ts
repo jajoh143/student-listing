@@ -15,6 +15,10 @@ import { ICreateStudentRegistrationResult } from '../../services/registration/mo
 import { IUpdateStudentRegistrationParams } from '../../services/registration/models/update-student-registration-param.model';
 import { IUpdateStudentRegistrationResult } from '../../services/registration/models/update-student-registration-result.model';
 import { StudentService } from '../../services/student/student.service';
+import { ICreateStudentParams } from '../../services/student/models/create-student-params.model';
+import { ICreateStudentResult } from '../../services/student/models/create-student-result.model';
+import { IUpdateStudentParams } from '../../services/student/models/update-student-params.model';
+import { IUpdateStudentResult } from '../../services/student/models/update-student-result.model';
 
 export interface StudentModalModel {
   title: string;
@@ -127,9 +131,52 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
   }
 
   confirm() {
-    this.studentService.
-    this.result = true;
-    this.close();
+    if (typeof (this.student.studentId) === "number" && this.student.studentId > 0) {
+      this.updateStudent();
+    }
+    else {
+      this.createStudent();
+    }
+  }
+
+  updateStudent(): void {
+    let oParams: IUpdateStudentParams = {
+      studentId: this.student.studentId,
+      firstName: this.student.firstName,
+      lastName: this.student.lastName,
+      email: this.student.email
+    };
+
+    this.studentService.updateStudent(oParams).subscribe((result: IUpdateStudentResult) => {
+      this.result = true;
+      this.close();
+    });
+  }
+
+  createStudent(): void {
+    let oParams: ICreateStudentParams = {
+      firstName: this.student.firstName,
+      lastName:  this.student.lastName,
+      email: this.student.email,
+      registrations: []
+    };
+
+    if (this.studentRegistrationsViewModel.length > 0) {
+      let registrations: IRegistration[] = this.studentRegistrationsViewModel.map(registration => {
+        return {
+          courseId: registration.courseId,
+          courseHours: registration.courseHours,
+          gradeId: registration.gradeId,
+        } as IRegistration
+      });
+
+      oParams.registrations = registrations;
+    }
+
+    this.studentService.createStudent(oParams).subscribe((result: ICreateStudentResult) => {
+      this.result = true;
+      this.close();
+    });
   }
 }
 

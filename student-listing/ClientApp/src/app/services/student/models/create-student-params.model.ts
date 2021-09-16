@@ -1,9 +1,11 @@
 import { IRegistration } from "../../../models/registration.model";
-import { IStudent } from "../../../models/student.model";
 
 /**
- * IGetStudentResult
+ * ICreateStudentParams
  */
-export interface IGetStudentResult extends IStudent {
-  registrationCollection: IRegistration[];
+export interface ICreateStudentParams {
+  firstName: string;
+  lastName: string;
+  email: string;
+  registrations: IRegistration[];
 }

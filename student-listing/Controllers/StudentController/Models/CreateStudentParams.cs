@@ -13,11 +13,6 @@ namespace student_listing.Controllers.StudentController.Models
     public class CreateStudentParams
     {
         /// <summary>
-        /// ID
-        /// </summary>
-        public int StudentId { get; set; }
-
-        /// <summary>
         /// First Name
         /// </summary>
         public string FirstName { get; set; }
@@ -31,11 +26,6 @@ namespace student_listing.Controllers.StudentController.Models
         /// Email
         /// </summary>
         public string Email { get; set; }
-
-        /// <summary>
-        /// Courses - list of course names student is in
-        /// </summary>
-        public string Courses { get; set; }
 
         /// <summary>
         /// List of registration records for the user

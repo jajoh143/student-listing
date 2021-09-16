@@ -77,7 +77,7 @@ namespace student_listing.Data.DAL.StudentDataAccess
                     UPDATE dbo.Students
                     SET FirstName = @FirstName,
                     LastName = @LastName,
-                    Email = @Email,
+                    Email = @Email
                     WHERE StudentId = @StudentId;";
 
                 return await db.ExecuteAsync(sql, new 

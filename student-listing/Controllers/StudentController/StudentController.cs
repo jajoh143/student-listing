@@ -56,7 +56,6 @@ namespace student_listing.Controllers.StudentController
         {
             Student student = new Student
             {
-                StudentId = createStudentParams.StudentId,
                 FirstName = createStudentParams.FirstName,
                 LastName = createStudentParams.LastName,
                 Email = createStudentParams.Email,
