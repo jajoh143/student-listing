@@ -1,5 +1,5 @@
 <div class="modal-dialog">
-  <div class="modal-content">
+  <div [class]="modalContentClassString">
     <div class="modal-header">
       <h4>{{title}}</h4>
     </div>
@@ -19,59 +19,62 @@
         </div>
       </form>
       <h4 class="mb-2">Courses</h4>
-      <form>
-        <div class="input-group">
-          <select name="course" class="custom-select" [(ngModel)]="selectedCourseId">
-            <option value="0">Choose...</option>
-            <option *ngFor="let course of courses" [value]="course.courseId">{{course.courseName}} - {{course.creditHours}} Credit Hours</option>
-          </select>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" (click)="addCourse()">Add</button>
+      <p class="mb-2" *ngIf="!showStudentCourses">*Courses can be added after a student has been created.</p>
+      <div *ngIf="showStudentCourses">
+        <form>
+          <div class="input-group">
+            <select name="course" class="custom-select" [(ngModel)]="selectedCourseId">
+              <option value="0">Choose...</option>
+              <option *ngFor="let course of courses" [value]="course.courseId">{{course.courseName}} - {{course.creditHours}} Credit Hours</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="addCourse()">Add</button>
+            </div>
           </div>
+        </form>
+        <hr />
+        <div class="overflow-auto heightMaxFixed250">
+          <table class="table table-striped overflow-auto">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Cred Hours</th>
+                <th>Grade</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of studentRegistrationsViewModel">
+                <td>
+                  {{course.courseName}}
+                </td>
+                <td class="textAlignRight">
+                  {{course.courseHours}}
+                </td>
+                <td>
+                  <ng-container *ngIf="!course.showEditGrade">
+                    {{course.gradeLetter}}
+                  </ng-container>
+                  <ng-container *ngIf="course.showEditGrade">
+                    <select name="grade" [(ngModel)]="course.gradeId">
+                      <option *ngFor="let grade of grades" [value]="grade.gradeId">{{grade.letter}}</option>
+                    </select>
+                  </ng-container>
+                </td>
+                <td>
+                  <button *ngIf="!course.showEditGrade" class="btn btn-info mr-1" role="button" (click)="toggleShowEditGrade(course)"><i class="fa fa-pencil"></i></button>
+                  <button *ngIf="course.showEditGrade" class="btn btn-success mr-1" role="button" (click)="editCourseGrade(course)"><i class="fa fa-check"></i></button>
+                  <button class="btn btn-danger" role="button" (click)="removeCourse(course)"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </form>
-      <hr />
-      <div class="overflow-auto heightMaxFixed250">
-        <table class="table table-striped overflow-auto">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Cred Hours</th>
-              <th>Grade</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let course of studentRegistrationsViewModel">
-              <td>
-                {{course.courseName}}
-              </td>
-              <td class="textAlignRight">
-                {{course.courseHours}}
-              </td>
-              <td>
-                <ng-container *ngIf="!course.showEditGrade">
-                  {{course.gradeLetter}}
-                </ng-container>
-               <ng-container *ngIf="course.showEditGrade">
-                 <select name="grade" [(ngModel)]="course.gradeId">
-                   <option *ngFor="let grade of grades" [value]="grade.gradeId">{{grade.letter}}</option>
-                 </select>
-               </ng-container>
-              </td>
-              <td>
-                <button *ngIf="!course.showEditGrade" class="btn btn-info mr-1" role="button" (click)="toggleShowEditGrade(course)"><i class="fa fa-pencil"></i></button>
-                <button *ngIf="course.showEditGrade" class="btn btn-success mr-1" role="button" (click)="editCourseGrade(course)"><i class="fa fa-check"></i></button>
-                <button class="btn btn-danger" role="button" (click)="removeCourse(course)"><i class="fa fa-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-danger" (click)="close()">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="confirm()">Save</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="close()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()">Save</button>
+      </div>
     </div>
   </div>
 </div>

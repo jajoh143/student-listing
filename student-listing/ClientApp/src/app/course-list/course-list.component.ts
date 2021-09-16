@@ -17,48 +17,59 @@ export class CourseListComponent implements OnInit {
 
   public courseList: ICourse[] = [];
 
+  /**
+   * Ctor
+   * @param store - Redux store for the application
+   * @param service - the course service
+   * @param modalService - the modal service
+   */
   constructor(private store: Store<AppState>, private service: CourseService, private modalService: SimpleModalService) {
     this.store.select(getCourses).subscribe((courses: any) => {
       this.courseList = courses;
     });
   }
 
-  public editCourse(course: ICourse): void {
-    console.log(course);
-    this.modalService.addModal(CourseModalComponent,
-      {
-        title: "Edit Course",
-        course: course
-      })
-      .subscribe((isConfirmed) => {
-        if (isConfirmed) {
-          this.service.getCourses();
-        }
-        else {
-          console.log("JK");
-        }
-      });
-  }
-
-  public addCourse(): void {
-    this.modalService.addModal(CourseModalComponent,
-      {
-        title: "Add Course",
-        course: {} as ICourse
-      })
-      .subscribe((isConfirmed) => {
-        if (isConfirmed) {
-          this.service.getCourses();
-        }
-        else {
-          console.log("JK");
-        }
-      });
-  }
-
+  /**
+   * OnInit - sets courses for the store
+   */
   public ngOnInit(): void {
     this.service.getCourses().subscribe((result: IGetCourseResult) => {
       this.store.dispatch(setCourses({ courses: result.courseCollection }));
     })
+  }
+
+  /**
+   *  Launches the modal to edit the selected course
+   * @param course
+   */
+  public editCourse(course: ICourse): void {
+    this.launchModal(course);
+  }
+
+  /**
+   * Launches the modal to add a new course
+   */
+  public addCourse(): void {
+    this.launchModal({} as ICourse);
+  }
+
+  /**
+   * Launches the modal
+   * @param course
+   */
+  private launchModal(course: ICourse): void {
+
+    let modalTitle: string = course.courseId > 0 ? "Edit Course" : "Add Course";
+
+    this.modalService.addModal(CourseModalComponent,
+      {
+        title: modalTitle,
+        course
+      })
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.service.getCourses();
+        }
+      });
   }
 }

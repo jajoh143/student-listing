@@ -19,23 +19,41 @@ namespace student_listing.Controllers.StudentController
         /// </summary>
         private IStudentBusiness _studentBusiness { get; set; }
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="studentBusiness"></param>
         public StudentController(IStudentBusiness studentBusiness)
         {
             _studentBusiness = studentBusiness;
         }
 
+        /// <summary>
+        /// Gets a list of all students
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<GetStudentList>> Get()
         {
             return Ok(new GetStudentList(await _studentBusiness.GetStudentList()));
         }
 
+        /// <summary>
+        /// Gets a student with the supplied id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>student</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<GetStudent>> Get(int id)
         {
             return Ok(new GetStudent(await _studentBusiness.GetStudent(id)));
         }
 
+        /// <summary>
+        /// Updates a student
+        /// </summary>
+        /// <param name="updateStudentParams">info to update student with</param>
+        /// <returns>If the student was updated</returns>
         [HttpPut]
         public async Task<ActionResult<UpdateStudentResult>> UpdateStudent([FromBody] UpdateStudentParams updateStudentParams)
         {
@@ -51,6 +69,11 @@ namespace student_listing.Controllers.StudentController
             return Ok(new UpdateStudentResult(await _studentBusiness.UpdateStudent(student)));
         }
 
+        /// <summary>
+        /// Creates a student
+        /// </summary>
+        /// <param name="createStudentParams">info to create the student with</param>
+        /// <returns>If the student was created</returns>
         [HttpPost]
         public async Task<ActionResult<CreateStudentResult>> CreateStudent([FromBody] CreateStudentParams createStudentParams)
         {
@@ -58,8 +81,7 @@ namespace student_listing.Controllers.StudentController
             {
                 FirstName = createStudentParams.FirstName,
                 LastName = createStudentParams.LastName,
-                Email = createStudentParams.Email,
-                Registrations = createStudentParams.Registrations
+                Email = createStudentParams.Email
             };
             return Ok(new CreateStudentResult(await _studentBusiness.CreateStudent(student)));
         }

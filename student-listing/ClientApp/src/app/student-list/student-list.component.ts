@@ -63,9 +63,6 @@ export class StudentListComponent implements OnInit {
         if (isConfirmed) {
           this.loadStudents();
         }
-        else {
-          console.log("JK");
-        }
       });
   }
 }

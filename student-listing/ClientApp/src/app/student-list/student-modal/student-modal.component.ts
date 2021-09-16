@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SimpleModalComponent } from 'ngx-simple-modal';
 import { CourseService } from '../../services/course/course.service';
 import { ICourse } from '../../models/course.model';
@@ -10,15 +10,15 @@ import { IGetGradeResult } from '../../services/grade/models/get-grade-result';
 import { RegistrationService } from '../../services/registration/registration.service';
 import { IGetCourseResult } from '../../services/course/models/get-course-result';
 import { IDeleteStudentRegistratioResult } from '../../services/registration/models/delete-student-registration-result.model';
-import { ICreateStudentRegistrationParams } from '../../services/registration/models/create-student-registration-params.model';
-import { ICreateStudentRegistrationResult } from '../../services/registration/models/create-student-registration-result.model';
-import { IUpdateStudentRegistrationParams } from '../../services/registration/models/update-student-registration-param.model';
-import { IUpdateStudentRegistrationResult } from '../../services/registration/models/update-student-registration-result.model';
 import { StudentService } from '../../services/student/student.service';
 import { ICreateStudentParams } from '../../services/student/models/create-student-params.model';
 import { ICreateStudentResult } from '../../services/student/models/create-student-result.model';
 import { IUpdateStudentParams } from '../../services/student/models/update-student-params.model';
 import { IUpdateStudentResult } from '../../services/student/models/update-student-result.model';
+import { ICreateStudentRegistrationParams } from '../../services/registration/models/create-student-registration-params.model';
+import { ICreateStudentRegistrationResult } from '../../services/registration/models/create-student-registration-result.model';
+import { IUpdateStudentRegistrationParams } from '../../services/registration/models/update-student-registration-param.model';
+import { IUpdateStudentRegistrationResult } from '../../services/registration/models/update-student-registration-result.model';
 
 export interface StudentModalModel {
   title: string;
@@ -34,12 +34,21 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
 
   public title: string = "Add Student";
   public student: IStudent = {} as IStudent;
-  public studentRegistrationsViewModel: IStudentRegistrationModalViewModel[];
+  public studentRegistrationsViewModel: IStudentRegistrationModalViewModel[] = [];
   public courses: ICourse[] = [];
   public grades: IGrade[] = [];
   public selectedCourseId: number = 0;
   public showEditGrade: boolean = false;
+  public showStudentCourses: boolean = false;
+  public modalContentClassString: string = "modal-content heightFixed480";
 
+  /**
+   * Ctor
+   * @param registrationService - registration service
+   * @param courseService - course service
+   * @param gradeService - grade service
+   * @param studentService - student service
+   */
   constructor(private registrationService: RegistrationService, public courseService: CourseService, private gradeService: GradeService, private studentService: StudentService) {
     super();
   }
@@ -48,26 +57,31 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
    * OnInit - sets a list of courses available to add for the student
    */
   public ngOnInit(): void {
-    this.courseService.getStudentCourseList(this.student.studentId).subscribe((result: IGetCourseResult) => {
-      this.courses = result.courseCollection;
-    });
+    if (typeof (this.student.studentId) === "number" && this.student.studentId > 0) {
+      this.showStudentCourses = true;
+      this.modalContentClassString = "modal-content heightFixed790";
 
-    this.gradeService.getGrades().subscribe((result: IGetGradeResult) => {
-      this.grades = result.gradeCollection;
-    });
+      this.courseService.getStudentCourseList(this.student.studentId).subscribe((result: IGetCourseResult) => {
+        this.courses = result.courseCollection;
+      });
 
-    if (typeof (this.student.registrationCollection) === "object" && this.student.registrationCollection.length > 0) {
-      let studentRegistrations: IStudentRegistrationModalViewModel[] = [];
+      this.gradeService.getGrades().subscribe((result: IGetGradeResult) => {
+        this.grades = result.gradeCollection;
+      });
 
-      for (let index: number = 0; index < this.student.registrationCollection.length; index++) {
-        let registration: IStudentRegistrationModalViewModel = {
-          position: index,
-          showEditGrade: false,
-          ...this.student.registrationCollection[index]
-        };
-        studentRegistrations.push(registration);
+      if (typeof (this.student.registrationCollection) === "object" && this.student.registrationCollection.length > 0) {
+        let studentRegistrations: IStudentRegistrationModalViewModel[] = [];
+
+        for (let index: number = 0; index < this.student.registrationCollection.length; index++) {
+          let registration: IStudentRegistrationModalViewModel = {
+            position: index,
+            showEditGrade: false,
+            ...this.student.registrationCollection[index]
+          };
+          studentRegistrations.push(registration);
+        }
+        this.studentRegistrationsViewModel = [...studentRegistrations];
       }
-      this.studentRegistrationsViewModel = [...studentRegistrations];
     }
   }
 
@@ -83,6 +97,9 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
     });
   }
 
+  /**
+   * Adds a course to the student
+   */
   public addCourse(): void {
     let oParams: ICreateStudentRegistrationParams = {
       studentId: this.student.studentId,
@@ -90,7 +107,7 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
     };
     this.registrationService.addRegistration(oParams).subscribe((result: ICreateStudentRegistrationResult) => {
       if (result.success) {
-        let oStudentRegistrations: IStudentRegistrationModalViewModel[] = [...this.studentRegistrationsViewModel];
+        let oStudentRegistrations: IStudentRegistrationModalViewModel[] = this.studentRegistrationsViewModel.length > 0 ? [...this.studentRegistrationsViewModel] : [];
         if (typeof (this.selectedCourseId) === "string") this.selectedCourseId = parseInt(this.selectedCourseId);
         let oSelectedCourse: ICourse = this.courses.find(course => course.courseId === this.selectedCourseId);
 
@@ -103,11 +120,17 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
           showEditGrade: false
         } as IStudentRegistrationModalViewModel);
 
+        this.courses = [...this.courses.filter(course => course.courseId !== oSelectedCourse.courseId)];
         this.studentRegistrationsViewModel = oStudentRegistrations;
+        this.selectedCourseId = 0;
       }
     });
   }
 
+  /**
+   * Toggles the ability to edit the grade for a chosen course
+   * @param registration
+   */
   public toggleShowEditGrade(registration: IStudentRegistrationModalViewModel): void {
     let registrations: IStudentRegistrationModalViewModel[] = [...this.studentRegistrationsViewModel].filter(registrationItem => registrationItem.registrationId !== registration.registrationId);
     registration.showEditGrade = !registration.showEditGrade;
@@ -115,6 +138,10 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
     this.studentRegistrationsViewModel = registrations;
   }
 
+  /**
+   * Edits the grade for a chosen course registation
+   * @param registration
+   */
   public editCourseGrade(registration: IStudentRegistrationModalViewModel): void {
     let oParams: IUpdateStudentRegistrationParams = {
       registrationId: registration.registrationId,
@@ -130,6 +157,9 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
     })
   }
 
+  /**
+   * Event raised when the Save button is clicked
+   */
   confirm() {
     if (typeof (this.student.studentId) === "number" && this.student.studentId > 0) {
       this.updateStudent();
@@ -139,20 +169,29 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
     }
   }
 
+  /**
+   * Updates the student via the student service
+   */
   updateStudent(): void {
     let oParams: IUpdateStudentParams = {
       studentId: this.student.studentId,
       firstName: this.student.firstName,
       lastName: this.student.lastName,
-      email: this.student.email
-    };
+      email: this.student.email,
+      registrations: []
+    }
 
     this.studentService.updateStudent(oParams).subscribe((result: IUpdateStudentResult) => {
-      this.result = true;
-      this.close();
+      if (result.success) {
+        this.result = true;
+        this.close();
+      }
     });
   }
 
+  /**
+   * creates the student via the student service
+   */
   createStudent(): void {
     let oParams: ICreateStudentParams = {
       firstName: this.student.firstName,
@@ -161,21 +200,11 @@ export class StudentModalComponent extends SimpleModalComponent<StudentModalMode
       registrations: []
     };
 
-    if (this.studentRegistrationsViewModel.length > 0) {
-      let registrations: IRegistration[] = this.studentRegistrationsViewModel.map(registration => {
-        return {
-          courseId: registration.courseId,
-          courseHours: registration.courseHours,
-          gradeId: registration.gradeId,
-        } as IRegistration
-      });
-
-      oParams.registrations = registrations;
-    }
-
     this.studentService.createStudent(oParams).subscribe((result: ICreateStudentResult) => {
-      this.result = true;
-      this.close();
+      if (result.success) {
+        this.result = true;
+        this.close();
+      }
     });
   }
 }

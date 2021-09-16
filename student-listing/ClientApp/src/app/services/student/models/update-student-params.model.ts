@@ -8,4 +8,5 @@ export interface IUpdateStudentParams {
   firstName: string;
   lastName: string;
   email: string;
+  registrations: IRegistration[];
 }

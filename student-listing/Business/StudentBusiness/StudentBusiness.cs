@@ -58,6 +58,11 @@ namespace student_listing.Business.StudentBusiness
             return student;
         }
 
+        /// <summary>
+        /// Updates a student in the database
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>if the student was created successfully</returns>
         public async Task<bool> UpdateStudent(Student student)
         {
             if (student == null) throw new ArgumentNullException(nameof(student), "Invalid argument provided");
@@ -65,11 +70,16 @@ namespace student_listing.Business.StudentBusiness
 
             if (updateStudentRowsAffected == 1)
             {
-                return true;
+                 return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// Creates a student in the database
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>If the student was created successfully</returns>
         public async Task<bool> CreateStudent(Student student)
         {
             if (student == null) throw new ArgumentNullException(nameof(student), "Invalid argument provided");
@@ -78,20 +88,7 @@ namespace student_listing.Business.StudentBusiness
 
             if (createStudentRowsAffected == 1)
             {
-                if (student.Registrations.Count() > 0)
-                {
-                    int createRegistrationRowsAffected = await _registrationDataAccess.CreateRegistrations(student.Registrations);
-
-                    if (createRegistrationRowsAffected == student.Registrations.Count())
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }

@@ -23,6 +23,15 @@ div.modal {
   max-height: 250px;
 }
 
+.heightFixed480 {
+  height: 480px;
+}
+
+.heightFixed790 {
+  height: 790px;
+}
+
+
 .textAlignRight {
   text-align: right;
 }
