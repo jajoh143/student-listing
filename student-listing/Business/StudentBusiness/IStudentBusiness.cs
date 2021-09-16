@@ -18,5 +18,19 @@ namespace student_listing.Business.StudentBusiness
         /// <param name="id">student id</param>
         /// <returns>Student object</returns>
         Task<Student> GetStudent(int id);
+
+        /// <summary>
+        /// UpdateStudent - update a student
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>whether or not the student was successfully updated</returns>
+        Task<bool> UpdateStudent(Student student);
+
+        /// <summary>
+        /// Create Student - create a student
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>Whether or not the student was created</returns>
+        Task<bool> CreateStudent(Student student);
     }
 }

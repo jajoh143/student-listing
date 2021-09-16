@@ -18,7 +18,7 @@ namespace student_listing.Data.DAL.StudentDataAccess
             _configuration = configuration;
         }
         
-        public async Task<IEnumerable<Models.Student>> GetStudents()
+        public async Task<IEnumerable<Student>> GetStudents()
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
             {
@@ -66,6 +66,44 @@ namespace student_listing.Data.DAL.StudentDataAccess
                     WHERE s.StudentId = @studentId;";
 
                 return await db.QueryFirstAsync<Student>(sql, new { StudentId = id });
+            }
+        }
+
+        public async Task<int> UpdateStudent(Student student)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                    UPDATE dbo.Students
+                    SET FirstName = @FirstName,
+                    LastName = @LastName,
+                    Email = @Email,
+                    WHERE StudentId = @StudentId;";
+
+                return await db.ExecuteAsync(sql, new 
+                {  
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    StudentId = student.StudentId
+                });
+            }
+        }
+
+        public async Task<int> CreateStudent(Student student)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                   INSERT INTO dbo.Students (FirstName, LastName, Email)
+                   VALUES (@FirstName, @LastName, @Email);";
+
+                return await db.ExecuteAsync(sql, new
+                {
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email
+                });
             }
         }
     }

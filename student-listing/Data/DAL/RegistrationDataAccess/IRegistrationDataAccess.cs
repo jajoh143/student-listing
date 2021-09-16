@@ -27,5 +27,20 @@ namespace student_listing.Data.DAL.RegistrationDataAccess
         /// <param name="courseId">course id</param>
         /// <returns>Whether or not the registration was created</returns>
         Task<int> CreateStudentRegistration(int studentId, int courseId);
+
+        /// <summary>
+        /// Updates an existing registration with the new grade
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <param name="gradeId">grade id</param>
+        /// <returns>Whether or not the registration was created</returns>
+        Task<int> UpdateStudentRegistration(int registrationId, int gradeId);
+
+        /// <summary>
+        /// Creates the registration records with provided info
+        /// </summary>
+        /// <param name="registrations">list of registrations</param>
+        /// <returns>number of rows affected</returns>
+        Task<int> CreateRegistrations(IEnumerable<Registration> registrations);
     }
 }

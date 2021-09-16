@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SimpleModalService } from 'ngx-simple-modal';
-import { CourseService } from './services/course.service';
-import { IGetCourseResult } from './services/models/get-course-result';
+import { CourseService } from '../services/course/course.service';
 import { setCourses } from '../store/app.actions';
 import { getCourses } from '../store/app.selectors';
 import { ICourse } from '../models/course.model';
 import { CourseModalComponent } from './course-modal/course-modal.component';
-import { IAppState } from '../store/app.reducer';
 import { AppState } from '../store';
+import { IGetCourseResult } from '../services/course/models/get-course-result';
 
 @Component({
   selector: 'app-course-list',

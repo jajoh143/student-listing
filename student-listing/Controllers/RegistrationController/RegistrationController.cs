@@ -31,6 +31,12 @@ namespace student_listing.Controllers.StudentController
             return Ok(new CreateStudentRegistrationResult(await _registrationBusiness.CreateStudentRegistration(registrationParams.StudentId, registrationParams.CourseId)));
         }
 
+        [HttpPut]
+        public async Task<ActionResult<UpdateStudentRegistrationResult>> Post([FromBody] UpdateStudentRegistrationParams registrationParams)
+        {
+            return Ok(new UpdateStudentRegistrationResult(await _registrationBusiness.UpdateStudentRegistration(registrationParams.RegistrationId, registrationParams.GradeId)));
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<DeleteStudentRegistrationResult>> Delete(int id)
         {

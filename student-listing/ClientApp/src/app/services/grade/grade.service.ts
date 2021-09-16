@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IGetCourseResult } from './models/get-course-result';
+import { IGetGradeResult } from './models/get-grade-result';
 
+/**
+ * GradeService
+ */
 @Injectable({ providedIn: "root" })
-export class CourseService {
+export class GradeService {
   constructor(private http: HttpClient) { }
 
   /**
    * Retrieves a list of all students with their courses listed and a cumulative GPA
    */
-  getCourses(): Observable<IGetCourseResult> {
-    return this.http.get<IGetCourseResult>("/api/course");
+  public getGrades(): Observable<IGetGradeResult> {
+    return this.http.get<IGetGradeResult>("api/grade");
   }
 }

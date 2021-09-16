@@ -18,24 +18,17 @@
           <input class="form-control" type="email" id="email" aria-describedby="email" placeholder="Set email here.." name="email" [(ngModel)]="student.email" />
         </div>
       </form>
-      <div class="row">
-        <div class="col-6">
-          <h4 class="mb-2">Courses</h4>
-        </div>
-        <div class="col-6">
-          <button class="btn btn-primary float-right mb-2" role="button" (click)="showCourseAdd()">Add Course</button>
-        </div>
-      </div>
+      <h4 class="mb-2">Courses</h4>
       <form>
-       <div class="input-group">
-        <select name="course" class="custom-select" [(ngModel)]="selectedCourseId">
-          <option value="0">Choose...</option>
-          <option *ngFor="let course of courses" [value]="course.courseId">{{course.courseName}} - {{course.creditHours}} Credit Hours</option>
-        </select>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="addCourse()">Add</button>
+        <div class="input-group">
+          <select name="course" class="custom-select" [(ngModel)]="selectedCourseId">
+            <option value="0">Choose...</option>
+            <option *ngFor="let course of courses" [value]="course.courseId">{{course.courseName}} - {{course.creditHours}} Credit Hours</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="addCourse()">Add</button>
+          </div>
         </div>
-      </div>
       </form>
       <hr />
       <div class="overflow-auto heightMaxFixed250">
@@ -48,8 +41,8 @@
               <th></th>
             </tr>
           </thead>
-          <tbody class="overflow-auto maxHeightFixed250">
-            <tr *ngFor="let course of student.registrationCollection">
+          <tbody>
+            <tr *ngFor="let course of studentRegistrationsViewModel">
               <td>
                 {{course.courseName}}
               </td>
@@ -57,10 +50,19 @@
                 {{course.courseHours}}
               </td>
               <td>
-                {{course.gradeLetter}}
+                <ng-container *ngIf="!course.showEditGrade">
+                  {{course.gradeLetter}}
+                </ng-container>
+               <ng-container *ngIf="course.showEditGrade">
+                 <select name="grade" [(ngModel)]="course.gradeId">
+                   <option *ngFor="let grade of grades" [value]="grade.gradeId">{{grade.letter}}</option>
+                 </select>
+               </ng-container>
               </td>
               <td>
-                <button class="btn btn-danger" role="button" (click)="removeCourse(course)">Remove</button>
+                <button *ngIf="!course.showEditGrade" class="btn btn-info mr-1" role="button" (click)="toggleShowEditGrade(course)"><i class="fa fa-pencil"></i></button>
+                <button *ngIf="course.showEditGrade" class="btn btn-success mr-1" role="button" (click)="editCourseGrade(course)"><i class="fa fa-check"></i></button>
+                <button class="btn btn-danger" role="button" (click)="removeCourse(course)"><i class="fa fa-trash"></i></button>
               </td>
             </tr>
           </tbody>

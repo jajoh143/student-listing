@@ -12,6 +12,10 @@ namespace student_listing.Controllers.RegistrationController.Models
         /// </summary>
         public bool Success { get; set; }
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="success">Whether or not the registation record was deleted</param>
         public DeleteStudentRegistrationResult(bool success)
         {
             Success = success;

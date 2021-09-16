@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using student_listing.Business.CourseBusiness;
+using student_listing.Controllers.CourseController.Models;
 using student_listing.Models;
 using student_listing.Web.Controllers.CourseController.Models;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace student_listing.Controllers.CourseController
     public class CourseController : ControllerBase
     {
         /// <summary>
-        /// Student Business
+        /// Course Business
         /// </summary>
         private ICourseBusiness _courseBusiness { get; set; }
 
@@ -24,26 +25,41 @@ namespace student_listing.Controllers.CourseController
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetCourseList>> Get()
+        public async Task<ActionResult<GetCourseList>> Get([FromQuery] int studentId)
         {
-            IEnumerable<Course> courses = await _courseBusiness.GetCourseList();
-            CourseCollection courseCollection = new CourseCollection(courses.Count());
-
-            foreach(Course course in courses)
+            if (studentId > 0)
             {
-                courseCollection.Add(new CourseItem
-                {
-                    CourseId = course.CourseId,
-                    CourseName = course.Name,
-                    CreditHours = course.CreditHours,
-                    Description = course.Description
-                });
+                return Ok(new GetCourseList(await _courseBusiness.GetStudentCourseList(studentId)));
+               
             }
+            return Ok(new GetCourseList(await _courseBusiness.GetCourseList()));
+        }
 
-            return new GetCourseList
+        [HttpPut]
+        public async Task<ActionResult<UpdateCourseResult>> Put([FromBody] UpdateCourseParams updateCourseParams)
+        {
+            Course course = new Course
             {
-                CourseCollection = courseCollection
+                CourseId = updateCourseParams.CourseId,
+                Name = updateCourseParams.Name,
+                Description = updateCourseParams.Description,
+                CreditHours = updateCourseParams.CreditHours
             };
+
+            return Ok(new UpdateCourseResult(await _courseBusiness.UpdateCourse(course)));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CreateCourseResult>> Post([FromBody] CreateCourseParams createCourseParams)
+        {
+            Course course = new Course
+            {
+                Name = createCourseParams.Name,
+                Description = createCourseParams.Description,
+                CreditHours = createCourseParams.CreditHours
+            };
+
+            return Ok(new CreateCourseResult(await _courseBusiness.CreateCourse(course)));
         }
     }
 }

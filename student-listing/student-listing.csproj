@@ -35,6 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ClientApp\src\app\models\grade.model.ts">
+      <SubType>Code</SubType>
+    </None>
     <None Update="ClientApp\src\app\store\app.actions.ts">
       <SubType>Code</SubType>
     </None>
@@ -47,6 +50,10 @@
     <None Update="ClientApp\src\app\models\student.model.ts">
       <SubType>Code</SubType>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\course-list\services\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

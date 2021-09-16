@@ -11,5 +11,26 @@ namespace student_listing.Data.DAL.CourseDataAccess
         /// </summary>
         /// <returns>A list of courses from the database</returns>
         Task<IEnumerable<Course>> GetCourses();
+
+        /// <summary>
+        /// Retrieves a list of courses that the student is not currently associated with
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>List of courses</returns>
+        Task<IEnumerable<Course>> GetStudentCourseList(int id);
+
+        /// <summary>
+        /// Updates the provided course in the database
+        /// </summary>
+        /// <param name="course">course</param>
+        /// <returns>Number of affected rows</returns>
+        Task<int> UpdateCourse(Course course);
+
+        /// <summary>
+        /// Creates the provided course in the database
+        /// </summary>
+        /// <param name="course">course</param>
+        /// <returns>Number of affected rows</returns>
+        Task<int> CreateCourse(Course course);
     }
 }

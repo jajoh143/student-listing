@@ -49,5 +49,25 @@ namespace student_listing.Business.RegistrationBusiness
             }
             return false;
         }
+
+        /// <summary>
+        /// Updates a student registration with a new grade
+        /// </summary>
+        /// <param name="registrationid">registration id</param>
+        /// <param name="gradeId">grade id</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateStudentRegistration(int registrationid, int gradeId)
+        {
+            if (registrationid <= 0) throw new ArgumentNullException(nameof(registrationid), "Invalid studentId parameter provided");
+            if (gradeId <= 0) throw new ArgumentNullException(nameof(gradeId), "Invalid courseId parameter provided");
+
+            int rowsAffected = await _registrationDataAccess.UpdateStudentRegistration(registrationid, gradeId);
+
+            if (rowsAffected == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

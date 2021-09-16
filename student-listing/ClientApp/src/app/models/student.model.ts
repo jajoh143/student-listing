@@ -4,7 +4,7 @@ import { IRegistration } from "./registration.model";
  * IStudent
  */
 export interface IStudent {
-  id: number;
+  studentId: number;
   firstName: string;
   lastName: string;
   email: string;

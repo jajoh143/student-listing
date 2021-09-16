@@ -27,7 +27,7 @@ namespace student_listing.Web.Controllers.StudentController.Models
             {
                 studentCollection.Add(new StudentItem
                 {
-                    Id = student.StudentId,
+                    StudentId = student.StudentId,
                     FirstName = student.FirstName,
                     LastName = student.LastName,
                     Email = student.Email,

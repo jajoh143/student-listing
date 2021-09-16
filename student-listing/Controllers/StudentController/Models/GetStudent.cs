@@ -10,7 +10,7 @@ namespace student_listing.Controllers.StudentController.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int StudentId { get; set; }
 
         /// <summary>
         /// First Name
@@ -42,6 +42,10 @@ namespace student_listing.Controllers.StudentController.Models
         /// </summary>
         public RegistrationCollection RegistrationCollection { get; set; }
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="student"></param>
         public GetStudent(Student student)
         {
             if (student == null) throw new ArgumentNullException(nameof(student), "Invalid student object provided.");
@@ -54,16 +58,17 @@ namespace student_listing.Controllers.StudentController.Models
                 {
                     registrationCollection.Add(new RegistrationItem
                     {
-                        Id = registration.RegistrationId,
+                        RegistrationId = registration.RegistrationId,
                         CourseId = registration.CourseId,
                         CourseName = registration.CourseName,
                         CourseHours = registration.CourseHours,
+                        GradeId = registration.GradeId,
                         GradeLetter = registration.GradeLetter
                     });
                 }
             }
 
-            Id = student.StudentId;
+            StudentId = student.StudentId;
             FirstName = student.FirstName;
             LastName = student.LastName;
             Email = student.Email;

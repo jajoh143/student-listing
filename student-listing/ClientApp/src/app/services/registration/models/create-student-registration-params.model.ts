@@ -1,7 +1,7 @@
 /**
  * ICreateStudentRegistrationParam
  */
-export interface ICreateStudentRegistrationParam {
+export interface ICreateStudentRegistrationParams {
   studentId: number;
   courseId: number;
 }

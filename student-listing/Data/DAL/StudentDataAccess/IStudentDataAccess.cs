@@ -18,5 +18,19 @@ namespace student_listing.Data.DAL.StudentDataAccess
         /// <param name="id">id</param>
         /// <returns>The student object</returns>
         Task<Student> GetStudent(int id);
+
+        /// <summary>
+        /// Updates a provided student in the database
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>Number of rows affected</returns>
+        Task<int> UpdateStudent(Student student);
+
+        /// <summary>
+        /// Creates a provided student in the database
+        /// </summary>
+        /// <param name="student">student</param>
+        /// <returns>Number of rows affected</returns>
+        Task<int> CreateStudent(Student student);
     }
 }

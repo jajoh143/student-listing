@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using student_listing.Business.CourseBusiness;
+using student_listing.Business.GradeBusiness;
 using student_listing.Business.RegistrationBusiness;
 using student_listing.Business.StudentBusiness;
 using student_listing.Data;
 using student_listing.Data.DAL.CourseDataAccess;
+using student_listing.Data.DAL.GradeDataAccess;
 using student_listing.Data.DAL.RegistrationDataAccess;
 using student_listing.Data.DAL.StudentDataAccess;
 using student_listing.Models;
@@ -49,6 +51,9 @@ namespace student_listing
 
             services.AddTransient<IRegistrationDataAccess, RegistrationDataAccess>();
             services.AddTransient<IRegistrationBusiness, RegistrationBusiness>();
+
+            services.AddTransient<IGradeDataAccess, GradeDataAccess>();
+            services.AddTransient<IGradeBusiness, GradeBusiness>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

@@ -18,5 +18,13 @@ namespace student_listing.Business.RegistrationBusiness
         /// <param name="courseId">course id</param>
         /// <returns>Whether or not the registration was successfully added</returns>
         Task<bool> CreateStudentRegistration(int studentId, int courseId);
+
+        /// <summary>
+        /// Updates a student registration with a new grade
+        /// </summary>
+        /// <param name="registrationId">registration id</param>
+        /// <param name="courseId">course id</param>
+        /// <returns></returns>
+        Task<bool> UpdateStudentRegistration(int registrationId, int courseId);
     }
 }

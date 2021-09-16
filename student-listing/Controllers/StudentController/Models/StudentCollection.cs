@@ -8,9 +8,7 @@ namespace student_listing.Web.Controllers.StudentController.Models
 {
    /// <summary>
    /// StudentCollection
-   /// 
    /// </summary>
-    [CollectionDataContract(Name = "studentCollection", ItemName = "studentItem")]
     public class StudentCollection : List<StudentItem>
     {
         /// <summary>

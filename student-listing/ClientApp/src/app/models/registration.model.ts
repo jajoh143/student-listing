@@ -2,9 +2,10 @@
  * IRegistration
  */
 export interface IRegistration {
-  id: number;
+  registrationId: number;
   courseId: number;
   courseName: string;
   courseHours: number;
+  gradeId: number;
   gradeLetter: string;
 }

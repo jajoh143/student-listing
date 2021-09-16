@@ -10,7 +10,7 @@ namespace student_listing.Web.Controllers.StudentController.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int RegistrationId { get; set; }
 
         /// <summary>
         /// Course Id
@@ -26,6 +26,8 @@ namespace student_listing.Web.Controllers.StudentController.Models
         /// Course Hours
         /// </summary>
         public int CourseHours { get; set; }
+
+        public int GradeId { get; set; }
 
         /// <summary>
         /// Grade Score
