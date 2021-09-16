@@ -9,7 +9,7 @@ namespace student_listing.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int RegistrationId { get; set; }
 
         /// <summary>
         /// Student Id

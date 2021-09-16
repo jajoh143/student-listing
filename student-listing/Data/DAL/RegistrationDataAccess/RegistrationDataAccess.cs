@@ -43,5 +43,29 @@ namespace student_listing.Data.DAL.RegistrationDataAccess
                 return await db.QueryAsync<Registration>(sql, new { StudentId = studentId });
             }
         }
+
+        public async Task<int> RemoveStudentRegistration(int registrationId)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                   DELETE FROM dbo.Registrations
+                   WHERE RegistrationId = @RegistrationId;";
+
+                return await db.ExecuteAsync(sql, new { RegistrationId = registrationId });
+            }
+        }
+
+        public async Task<int> CreateStudentRegistration(int studentId, int courseId)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                    INSERT INTO dbo.Registrations (StudentId, CourseId, GradeId)
+                    VALUES (@StudentId, @CourseId, 1);";
+
+                return await db.ExecuteAsync(sql, new { StudentId = studentId, CourseId = courseId });
+            }
+        }
     }
 }

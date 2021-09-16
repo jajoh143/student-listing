@@ -9,5 +9,5 @@ export interface IStudent {
   lastName: string;
   email: string;
   courseList: string;
-  courses: IRegistration[];
+  registrationCollection: IRegistration[];
 }

@@ -19,6 +19,10 @@ div.modal {
   background-color: rgba(0,0,0, 0.5);
 }
 
-.maxHeightFixed250 {
+.heightMaxFixed250 {
   max-height: 250px;
+}
+
+.textAlignRight {
+  text-align: right;
 }

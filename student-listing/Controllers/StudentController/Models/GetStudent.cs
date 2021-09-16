@@ -54,7 +54,7 @@ namespace student_listing.Controllers.StudentController.Models
                 {
                     registrationCollection.Add(new RegistrationItem
                     {
-                        Id = registration.Id,
+                        Id = registration.RegistrationId,
                         CourseId = registration.CourseId,
                         CourseName = registration.CourseName,
                         CourseHours = registration.CourseHours,
