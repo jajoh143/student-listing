@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { IGetStudentsResult } from './services/models/get-students-result';
-import { StudentService } from './services/student.service';
+import { IGetStudentsResult } from './student-list/services/models/get-students-result.model';
+import { StudentService } from './student-list/services/student.service';
 import { setStudents } from './store/app.actions';
 
 @Component({
@@ -14,8 +14,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.studentService.getStudents().subscribe((result: IGetStudentsResult) => {
-      this.store.dispatch(setStudents({ students: result.studentCollection }));
-    });
+   
   }
 }

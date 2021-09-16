@@ -14,3 +14,11 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+div.modal {
+  background-color: rgba(0,0,0, 0.5);
+}
+
+.maxHeightFixed250 {
+  max-height: 250px;
+}

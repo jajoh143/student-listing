@@ -1,19 +1,21 @@
-import { createReducer, on } from "@ngrx/store";
-import { IStudent } from "./models/student.model";
-import { ICourse } from "./models/course.model";
-import { setCourses, setStudents } from "./app.actions";
+import { Action, createReducer, on } from "@ngrx/store";
+import { IStudent } from "../models/student.model";
+import { ICourse } from "../models/course.model";
+import { setCourses, setStudent, setStudents } from "./app.actions";
 
-export const studentFeatureKey: string = "student";
+export const APP_FEATURE_KEY = "app";
 
 /**
  * AppState
  */
 export interface IAppState {
   students: IStudent[];
+  student: IStudent;
   courses: ICourse[];
 }
 
 export const initialState: IAppState = {
+  student: {} as IStudent,
   students: [],
   courses: []
 };
@@ -27,5 +29,9 @@ export const appReducer = createReducer(
   on(setCourses, (state: IAppState, props) => ({
     ...state,
     courses: props.courses
+  })),
+  on(setStudent, (state: IAppState, props) => ({
+    ...state,
+    student: props.student
   }))
 );

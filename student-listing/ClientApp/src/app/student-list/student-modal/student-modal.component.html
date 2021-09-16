@@ -1,0 +1,53 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>{{title}}</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input class="form-control" type="text" id="firstName" aria-describedby="firstName" placeholder="Set first name here.." name="firstName" [(ngModel)]="student.firstName" />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input class="form-control" type="text" id="lastName" aria-describedby="lastName" placeholder="Set last name here.." name="lastName" [(ngModel)]="student.lastName" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="email" id="email" aria-describedby="email" placeholder="Set email here.." name="email" [(ngModel)]="student.email" />
+        </div>
+      </form>
+      <h4>Courses</h4>
+      <button class="btn btn-primary float-right" role="button" (click)="addCourse()">Add Course</button>
+      <div class="overflow-auto heightMaxFixed300">
+        <table class="table table-striped overflow-auto">
+          <thead>
+            <tr>
+              <th>Course Name</th>
+              <th>Course Hours</th>
+              <th>Current Grade</th>
+            </tr>
+          </thead>
+          <tbody class="overflow-auto maxHeightFixed250">
+            <tr *ngFor="let course of student.registrationCollection">
+              <td>
+                {{course.courseName}}
+              </td>
+              <td>
+                {{course.courseHours}}
+              </td>
+              <td>
+                {{course.gradeLetter}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="confirm()">Save</button>
+    </div>
+  </div>
+</div>

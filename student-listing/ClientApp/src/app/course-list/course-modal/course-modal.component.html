@@ -1,0 +1,27 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>{{title}}</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <input class="form-control" type="text" id="courseName" aria-describedby="courseName" placeholder="Set course name here.." name="courseName" [(ngModel)]="course.courseName" />
+        </div>
+        <div class="form-group">
+          <label for="courseName">Course Description</label>
+          <input class="form-control" type="text" id="courseName" aria-describedby="courseName" placeholder="Set course name here.." name="description" [(ngModel)]="course.description" />
+        </div>
+        <div class="form-group">
+          <label for="courseName">Credit Hours</label>
+          <input class="form-control" type="number" id="courseName" aria-describedby="courseName" placeholder="Set course name here.." name="creditHours" [(ngModel)]="course.creditHours" />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="close()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="confirm()">Save</button>
+    </div>
+  </div>
+</div>

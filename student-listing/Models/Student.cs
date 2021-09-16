@@ -10,7 +10,7 @@ namespace student_listing.Models
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         
         /// <summary>
         /// First Name
@@ -30,11 +30,13 @@ namespace student_listing.Models
         /// <summary>
         /// Courses
         /// </summary>
-       public string Courses { get; set; }
+       public string CourseList { get; set; }
 
         /// <summary>
         /// Cumulative GPA - average of scores across registered courses for the student
         /// </summary>
         public decimal CumulativeGpa { get; set; }
+
+        public IEnumerable<Registration> Registrations { get; set; }
     }
 }

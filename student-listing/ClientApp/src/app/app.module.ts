@@ -11,17 +11,21 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CommonModule } from '@angular/common';
-import { studentReducer } from './store/student.reducer';
 import { RouterModule } from '@angular/router';
 import { CourseListComponent } from './course-list/course-list.component';
-import { courseReducer } from './store/course.reducer';
+import { SimpleModalModule } from 'ngx-simple-modal';
+import { CourseModalComponent } from './course-list/course-modal/course-modal.component';
+import { metaReducers, reducers } from './store';
+import { StudentModalComponent } from './student-list/student-modal/student-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentListComponent,
+    StudentModalComponent,
     SearchBarComponent,
     CourseListComponent,
+    CourseModalComponent,
     FetchDataComponent
   ],
   imports: [
@@ -30,6 +34,7 @@ import { courseReducer } from './store/course.reducer';
     FormsModule,
     CommonModule,
     ApiAuthorizationModule,
+    SimpleModalModule,
     RouterModule.forRoot([
       {
         path: "",
@@ -44,7 +49,17 @@ import { courseReducer } from './store/course.reducer';
         component: CourseListComponent
       }
     ]),
-    StoreModule.forRoot({ students: studentReducer, courses: courseReducer })
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+  ],
+  entryComponents: [
+    CourseModalComponent,
+    StudentModalComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }

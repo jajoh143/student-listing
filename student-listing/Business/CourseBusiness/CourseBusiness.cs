@@ -1,4 +1,5 @@
 ﻿using student_listing.Data.DAL.CourseDataAccess;
+using student_listing.Data.DAL.RegistrationDataAccess;
 using student_listing.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace student_listing.Business.CourseBusiness
         /// Ctor
         /// </summary>
         /// <param name="studentDataAccess"></param>
-        public CourseBusiness(ICourseDataAccess studentDataAccess)
+        public CourseBusiness(ICourseDataAccess courseDataAccess)
         {
-            _courseDataAccess = studentDataAccess;
+            _courseDataAccess = courseDataAccess;
         }
 
         public async Task<IEnumerable<Course>> GetCourseList()

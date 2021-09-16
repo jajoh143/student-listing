@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CourseService } from '../services/course.service';
-import { IGetCourseResult } from '../services/models/get-course-result';
+import { SimpleModalService } from 'ngx-simple-modal';
+import { CourseService } from './services/course.service';
+import { IGetCourseResult } from './services/models/get-course-result';
 import { setCourses } from '../store/app.actions';
 import { getCourses } from '../store/app.selectors';
-import { ICourse } from '../store/models/course.model';
+import { ICourse } from '../models/course.model';
+import { CourseModalComponent } from './course-modal/course-modal.component';
+import { IAppState } from '../store/app.reducer';
+import { AppState } from '../store';
 
 @Component({
   selector: 'app-course-list',
@@ -14,15 +18,47 @@ export class CourseListComponent implements OnInit {
 
   public courseList: ICourse[] = [];
 
-  constructor(private store: Store, private service: CourseService) {
+  constructor(private store: Store<AppState>, private service: CourseService, private modalService: SimpleModalService) {
     this.store.select(getCourses).subscribe((courses: any) => {
-      console.log(courses);
-      this.courseList = courses.courses;
+      this.courseList = courses;
     });
   }
 
+  public editCourse(course: ICourse): void {
+    console.log(course);
+    this.modalService.addModal(CourseModalComponent,
+      {
+        title: "Edit Course",
+        course: course
+      })
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.service.getCourses();
+        }
+        else {
+          console.log("JK");
+        }
+      });
+  }
+
+  public addCourse(): void {
+    this.modalService.addModal(CourseModalComponent,
+      {
+        title: "Add Course",
+        course: {} as ICourse
+      })
+      .subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.service.getCourses();
+        }
+        else {
+          console.log("JK");
+        }
+      });
+  }
+
   public ngOnInit(): void {
-    this.service.getStudents().subscribe((result: IGetCourseResult) => {
+    this.service.getCourses().subscribe((result: IGetCourseResult) => {
       this.store.dispatch(setCourses({ courses: result.courseCollection }));
     })
   }

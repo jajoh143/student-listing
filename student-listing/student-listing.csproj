@@ -38,13 +38,13 @@
     <None Update="ClientApp\src\app\store\app.actions.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\models\registration.model.ts">
+    <None Update="ClientApp\src\app\models\registration.model.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\models\course.model.ts">
+    <None Update="ClientApp\src\app\models\course.model.ts">
       <SubType>Code</SubType>
     </None>
-    <None Update="ClientApp\src\app\store\models\student.model.ts">
+    <None Update="ClientApp\src\app\models\student.model.ts">
       <SubType>Code</SubType>
     </None>
   </ItemGroup>
