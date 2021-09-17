@@ -58,7 +58,9 @@ export class CourseListComponent implements OnInit {
    */
   public removeCourse(courseId: number): void {
     this.service.deleteCourse(courseId).subscribe((result: IDeleteCourseResult) => {
-      this.loadCourses();
+      if (result.success) {
+        this.loadCourses();
+      }
     });
   }
 
