@@ -33,5 +33,12 @@ namespace student_listing.Business.CourseBusiness
         /// <param name="course">course</param>
         /// <returns>Whether or not the course was created successfully</returns>
         Task<bool> CreateCourse(Course course);
+
+        /// <summary>
+        /// Deletes the course
+        /// </summary>
+        /// <param name="courseId">course id</param>
+        /// <returns>If the course was deleted or not</returns>
+        Task<bool> DeleteCourse(int courseId);
     }
 }

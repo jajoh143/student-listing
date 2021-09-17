@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { SimpleModalService } from 'ngx-simple-modal';
 import { CourseService } from '../services/course/course.service';
 import { setCourses } from '../store/app.actions';
-import { getCourses } from '../store/app.selectors';
+import { getCourses, getSearchTerm } from '../store/app.selectors';
 import { ICourse } from '../models/course.model';
 import { CourseModalComponent } from './course-modal/course-modal.component';
 import { AppState } from '../store';
-import { IGetCourseResult } from '../services/course/models/get-course-result';
+import { IGetCourseResult } from '../services/course/models/get-course-result.model';
+import { IDeleteCourseResult } from '../services/course/models/delete-course-result.model';
 
 @Component({
   selector: 'app-course-list',
@@ -33,9 +34,7 @@ export class CourseListComponent implements OnInit {
    * OnInit - sets courses for the store
    */
   public ngOnInit(): void {
-    this.service.getCourses().subscribe((result: IGetCourseResult) => {
-      this.store.dispatch(setCourses({ courses: result.courseCollection }));
-    })
+    this.loadCourses();
   }
 
   /**
@@ -54,6 +53,16 @@ export class CourseListComponent implements OnInit {
   }
 
   /**
+   * Removes a course from the db and refresh the courses value in the store
+   * @param courseId
+   */
+  public removeCourse(courseId: number): void {
+    this.service.deleteCourse(courseId).subscribe((result: IDeleteCourseResult) => {
+      this.loadCourses();
+    });
+  }
+
+  /**
    * Launches the modal
    * @param course
    */
@@ -68,8 +77,17 @@ export class CourseListComponent implements OnInit {
       })
       .subscribe((isConfirmed) => {
         if (isConfirmed) {
-          this.service.getCourses();
+          this.loadCourses();
         }
       });
+  }
+
+  /**
+   * Reloads the value of the course list in the store
+   */
+  public loadCourses(): void {
+    this.service.getCourses().subscribe((result: IGetCourseResult) => {
+      this.store.dispatch(setCourses({ courses: result.courseCollection }));
+    });
   }
 }

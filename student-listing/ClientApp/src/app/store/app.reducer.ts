@@ -1,7 +1,7 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { IStudent } from "../models/student.model";
 import { ICourse } from "../models/course.model";
-import { setCourses, setStudent, setStudents } from "./app.actions";
+import { setCourses, setCurrentPage, setSearchTerm, setStudent, setStudents } from "./app.actions";
 
 export const APP_FEATURE_KEY = "app";
 
@@ -12,12 +12,16 @@ export interface IAppState {
   students: IStudent[];
   student: IStudent;
   courses: ICourse[];
+  currentPage: string;
+  searchTerm: string;
 }
 
 export const initialState: IAppState = {
   student: {} as IStudent,
   students: [],
-  courses: []
+  courses: [],
+  currentPage: "students",
+  searchTerm: ""
 };
 
 export const appReducer = createReducer(
@@ -33,5 +37,13 @@ export const appReducer = createReducer(
   on(setStudent, (state: IAppState, props) => ({
     ...state,
     student: props.student
+  })),
+  on(setCurrentPage, (state: IAppState, props) => ({
+    ...state,
+    currentPage: props.page
+  })),
+  on(setSearchTerm, (state: IAppState, props) => ({
+    ...state,
+    searchTerm: state.searchTerm
   }))
 );

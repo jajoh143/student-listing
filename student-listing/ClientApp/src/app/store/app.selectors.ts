@@ -1,7 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { APP_FEATURE_KEY, IAppState } from "./app.reducer";
-import { ICourse } from "../models/course.model";
-import { IStudent } from "../models/student.model";
 import { AppState } from ".";
 
 export const selectAppState = createFeatureSelector<AppState, IAppState>(APP_FEATURE_KEY);
@@ -28,4 +26,20 @@ export const getCourses = createSelector(
 export const getStudent = createSelector(
   selectAppState,
   state => state.student
+);
+
+/**
+ * retrieves the current page from store
+ */
+export const getCurrentPage = createSelector(
+  selectAppState,
+  state => state.currentPage
+);
+
+/**
+ * sets search term
+ */
+export const getSearchTerm = createSelector(
+  selectAppState,
+  state => state.searchTerm
 );

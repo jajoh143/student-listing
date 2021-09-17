@@ -92,5 +92,23 @@ namespace student_listing.Business.StudentBusiness
             }
             return false;
         }
+
+        /// <summary>
+        /// Deletes a student
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <returns>if the student was deleted correctly</returns>
+        public async Task<bool> DeleteStudent(int studentId)
+        {
+            if (studentId <= 0) throw new ArgumentOutOfRangeException(nameof(studentId), "Invalid argument provided");
+
+            int iRowsAffected = await _studentDataAcess.DeleteStudent(studentId);
+
+            if (iRowsAffected == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

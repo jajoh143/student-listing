@@ -32,5 +32,12 @@ namespace student_listing.Data.DAL.CourseDataAccess
         /// <param name="course">course</param>
         /// <returns>Number of affected rows</returns>
         Task<int> CreateCourse(Course course);
+
+        /// <summary>
+        /// Deletes the provided course
+        /// </summary>
+        /// <param name="courseId">course id</param>
+        /// <returns>if the course was deleted</returns>
+        Task<int> DeleteCourse(int courseId);
     }
 }

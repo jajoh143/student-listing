@@ -18,6 +18,10 @@ namespace student_listing.Data.DAL.StudentDataAccess
             _configuration = configuration;
         }
         
+        /// <summary>
+        /// Gets a list of students
+        /// </summary>
+        /// <returns>list of students</returns>
         public async Task<IEnumerable<Student>> GetStudents()
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
@@ -49,6 +53,11 @@ namespace student_listing.Data.DAL.StudentDataAccess
             }
         }
 
+        /// <summary>
+        /// Gets a student with the specified id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>student</returns>
         public async Task<Student> GetStudent(int id)
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
@@ -69,6 +78,11 @@ namespace student_listing.Data.DAL.StudentDataAccess
             }
         }
 
+        /// <summary>
+        /// Updates the specified student
+        /// </summary>
+        /// <param name="student">student info</param>
+        /// <returns>number of rows affected</returns>
         public async Task<int> UpdateStudent(Student student)
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
@@ -90,6 +104,11 @@ namespace student_listing.Data.DAL.StudentDataAccess
             }
         }
 
+        /// <summary>
+        /// Creates a student in the database
+        /// </summary>
+        /// <param name="student">student info</param>
+        /// <returns>number of rows affected</returns>
         public async Task<int> CreateStudent(Student student)
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
@@ -104,6 +123,23 @@ namespace student_listing.Data.DAL.StudentDataAccess
                     LastName = student.LastName,
                     Email = student.Email
                 });
+            }
+        }
+
+        /// <summary>
+        /// Deletes a student from the database
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <returns>number of rows affected</returns>
+        public async Task<int> DeleteStudent(int studentId)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                  DELETE FROM dbo.Students
+                  WHERE StudentId = @StudentId;";
+
+                return await db.ExecuteAsync(sql, new { StudentId = studentId });
             }
         }
     }

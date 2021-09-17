@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICreateStudentParams } from './models/create-student-params.model';
 import { ICreateStudentResult } from './models/create-student-result.model';
+import { IDeleteStudentResult } from './models/delete-student-result.model';
 import { IGetStudentResult } from './models/get-student-result.model';
 import { IGetStudentsResult } from './models/get-students-result.model';
 import { IUpdateStudentParams } from './models/update-student-params.model';
@@ -35,12 +36,19 @@ export class StudentService {
     return this.http.put<IUpdateStudentResult>("api/student", oParams);
   }
 
-
   /**
    * Creates a student with the provided information
    * @param oParams - student info
    */
   public createStudent(oParams: ICreateStudentParams): Observable<ICreateStudentResult> {
     return this.http.post<ICreateStudentResult>("api/student", oParams);
+  }
+
+  /**
+   * Deletes a student
+   * @param studentId - student id
+   */
+  public deleteStudent(studentId: number): Observable<IDeleteStudentResult> {
+    return this.http.delete<IDeleteStudentResult>(`api/student/${studentId}`);
   }
 }

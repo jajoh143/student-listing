@@ -79,5 +79,23 @@ namespace student_listing.Business.CourseBusiness
             }
             return false;
         }
+
+        /// <summary>
+        /// Deletes a course
+        /// </summary>
+        /// <param name="courseId">course id</param>
+        /// <returns>if the course was deleted or not</returns>
+        public async Task<bool> DeleteCourse(int courseId)
+        {
+            if (courseId <= 0) throw new ArgumentException("Invalid course id provided", nameof(courseId));
+
+            int rowsAffected = await _courseDataAccess.DeleteCourse(courseId);
+            
+            if (rowsAffected == 1)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

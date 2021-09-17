@@ -8,6 +8,7 @@ Add Course
       <th>Course Name</th>
       <th>Description</th>
       <th>Credit Hours</th>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -19,10 +20,20 @@ Add Course
         {{course.courseName}}
       </td>
       <td>
-        {{course.description}}
+        <p class="maxWidth400">
+          {{course.description}}
+        </p>
       </td>
       <td class="text-right">
         <span class="mr-2">{{course.creditHours}}</span>
+      </td>
+      <td>
+        <button class="btn btn-primary mr-2" type="button" role="button" (click)="editCourse(course)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger" type="button" role="button" (click)="removeCourse(course.courseId)">
+          <i class="fa fa-trash"></i>
+        </button>
       </td>
     </tr>
   </tbody>

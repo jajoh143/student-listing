@@ -16,3 +16,13 @@ export const setStudent = createAction(
   "[App] Set Student",
   props<{ student: IStudent }>()
 );
+
+export const setCurrentPage = createAction(
+  "[App] Set Current Page",
+  props<{ page: string }>()
+);
+
+export const setSearchTerm = createAction(
+  "[App] Set Search Term",
+  props<{ searchTerm: string }>
+);

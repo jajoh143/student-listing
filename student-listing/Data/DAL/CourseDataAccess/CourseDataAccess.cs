@@ -101,5 +101,17 @@ namespace student_listing.Data.DAL.CourseDataAccess
                 return await db.ExecuteAsync(sql, new { Name = course.Name, Description = course.Description, CreditHours = course.CreditHours });
             }
         }
+
+        public async Task<int> DeleteCourse(int courseId)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                    DELETE FROM dbo.Courses
+                    WHERE CourseId = @CourseId;";
+
+                return await db.ExecuteAsync(sql, new { CourseId = courseId });
+            }
+        }
     }
 }

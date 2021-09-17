@@ -32,5 +32,12 @@ namespace student_listing.Data.DAL.StudentDataAccess
         /// <param name="student">student</param>
         /// <returns>Number of rows affected</returns>
         Task<int> CreateStudent(Student student);
+
+        /// <summary>
+        /// Deletes a student
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <returns>count of rows affected</returns>
+        Task<int> DeleteStudent(int studentId);
     }
 }

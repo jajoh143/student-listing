@@ -32,5 +32,12 @@ namespace student_listing.Business.StudentBusiness
         /// <param name="student">student</param>
         /// <returns>Whether or not the student was created</returns>
         Task<bool> CreateStudent(Student student);
+
+        /// <summary>
+        /// Deletes a student
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <returns>if the student was deleted</returns>
+        Task<bool> DeleteStudent(int studentId);
     }
 }

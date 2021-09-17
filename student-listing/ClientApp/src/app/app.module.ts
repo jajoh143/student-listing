@@ -9,7 +9,6 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { StoreModule } from '@ngrx/store';
 import { StudentListComponent } from './student-list/student-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseListComponent } from './course-list/course-list.component';
@@ -25,8 +24,7 @@ import { StudentModalComponent } from './student-list/student-modal/student-moda
     StudentModalComponent,
     SearchBarComponent,
     CourseListComponent,
-    CourseModalComponent,
-    FetchDataComponent
+    CourseModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -40,3 +40,8 @@ div.modal {
   max-width: 600px;
   margin: 1.75rem auto;
 }
+
+.maxWidth400 {
+  max-width: 400px;
+}
+

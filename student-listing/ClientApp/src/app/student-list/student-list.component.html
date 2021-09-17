@@ -9,10 +9,11 @@
       <th>Email</th>
       <th>Cum. GPA</th>
       <th>Courses (Listed)</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of studentList" (click)="editStudent(student)">
+    <tr *ngFor="let student of studentList">
       <td>
         {{student.firstName}}
       </td>
@@ -26,7 +27,17 @@
         {{student.cumulativeGpa}}
       </td>
       <td>
-        {{student.courses}}
+        <p class="maxWidth400">
+          {{student.courses}}
+        </p>
+      </td>
+      <td>
+        <button class="btn btn-primary mr-2" type="button" role="button" (click)="editStudent(student)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger" type="button" role="button" (click)="deleteStudent(student.studentId)">
+          <i class="fa fa-trash"></i>
+        </button>
       </td>
     </tr>
   </tbody>

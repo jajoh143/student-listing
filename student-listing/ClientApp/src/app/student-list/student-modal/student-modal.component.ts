@@ -8,7 +8,7 @@ import { GradeService } from '../../services/grade/grade.service';
 import { IGrade } from '../../models/grade.model';
 import { IGetGradeResult } from '../../services/grade/models/get-grade-result';
 import { RegistrationService } from '../../services/registration/registration.service';
-import { IGetCourseResult } from '../../services/course/models/get-course-result';
+import { IGetCourseResult } from '../../services/course/models/get-course-result.model';
 import { IDeleteStudentRegistratioResult } from '../../services/registration/models/delete-student-registration-result.model';
 import { StudentService } from '../../services/student/student.service';
 import { ICreateStudentParams } from '../../services/student/models/create-student-params.model';

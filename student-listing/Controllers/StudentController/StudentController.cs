@@ -75,7 +75,7 @@ namespace student_listing.Controllers.StudentController
         /// <param name="createStudentParams">info to create the student with</param>
         /// <returns>If the student was created</returns>
         [HttpPost]
-        public async Task<ActionResult<CreateStudentResult>> CreateStudent([FromBody] CreateStudentParams createStudentParams)
+        public async Task<ActionResult<CreateStudentResult>> Post([FromBody] CreateStudentParams createStudentParams)
         {
             Student student = new Student
             {
@@ -84,6 +84,17 @@ namespace student_listing.Controllers.StudentController
                 Email = createStudentParams.Email
             };
             return Ok(new CreateStudentResult(await _studentBusiness.CreateStudent(student)));
+        }
+
+        /// <summary>
+        /// Deletes a student
+        /// </summary>
+        /// <param name="studentId">student id</param>
+        /// <returns>if the student was deleted</returns>
+        [HttpDelete("{studentId}")]
+        public async Task<ActionResult<DeleteStudentResult>> Delete(int studentId)
+        {
+            return Ok(new DeleteStudentResult(await _studentBusiness.DeleteStudent(studentId)));
         }
     }
 }
