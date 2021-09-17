@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
-import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { StudentListComponent } from './student-list/student-list.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -31,7 +29,6 @@ import { StudentModalComponent } from './student-list/student-modal/student-moda
     HttpClientModule,
     FormsModule,
     CommonModule,
-    ApiAuthorizationModule,
     SimpleModalModule,
     RouterModule.forRoot([
       {
@@ -58,9 +55,6 @@ import { StudentModalComponent } from './student-list/student-modal/student-moda
   entryComponents: [
     CourseModalComponent,
     StudentModalComponent
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
