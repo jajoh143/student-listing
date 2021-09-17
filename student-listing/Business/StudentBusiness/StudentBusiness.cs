@@ -3,7 +3,6 @@ using student_listing.Data.DAL.StudentDataAccess;
 using student_listing.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace student_listing.Business.StudentBusiness
@@ -48,7 +47,7 @@ namespace student_listing.Business.StudentBusiness
         {
             if (studentId <= 0)
             {
-                throw new ArgumentException("Invalid student id provided", nameof(studentId));
+                throw new ArgumentOutOfRangeException(nameof(studentId), "Invalid student id provided");
             }
 
             Student student = await _studentDataAcess.GetStudent(studentId);
