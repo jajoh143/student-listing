@@ -110,5 +110,17 @@ namespace student_listing.Business.StudentBusiness
             }
             return false;
         }
+
+        /// <summary>
+        /// Returns a list of students that match the search term
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of students</returns>
+        public async Task<IEnumerable<Student>> SearchStudents(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm)) throw new ArgumentException("Invalid searchTerm provided", nameof(searchTerm));
+
+            return await _studentDataAcess.SearchStudents(searchTerm);
+        }
     }
 }

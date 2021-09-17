@@ -97,5 +97,17 @@ namespace student_listing.Business.CourseBusiness
             }
             return false;
         }
+
+        /// <summary>
+        /// Searches the courses
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of courses</returns>
+        public async Task<IEnumerable<Course>> SearchCourses(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm)) throw new ArgumentNullException(nameof(searchTerm), "Invalid searchTerm provided");
+
+            return await _courseDataAccess.SearchCourses(searchTerm);
+        }
     }
 }

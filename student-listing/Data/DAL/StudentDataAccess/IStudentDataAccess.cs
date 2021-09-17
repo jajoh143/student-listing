@@ -39,5 +39,12 @@ namespace student_listing.Data.DAL.StudentDataAccess
         /// <param name="studentId">student id</param>
         /// <returns>count of rows affected</returns>
         Task<int> DeleteStudent(int studentId);
+
+        /// <summary>
+        /// Searches the students
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>List of students</returns>
+        Task<IEnumerable<Student>> SearchStudents(string searchTerm);
     }
 }

@@ -11,6 +11,7 @@ export const APP_FEATURE_KEY = "app";
 export interface IAppState {
   students: IStudent[];
   student: IStudent;
+  filteredStudents: IStudent[];
   courses: ICourse[];
   currentPage: string;
   searchTerm: string;
@@ -19,6 +20,7 @@ export interface IAppState {
 export const initialState: IAppState = {
   student: {} as IStudent,
   students: [],
+  filteredStudents: [],
   courses: [],
   currentPage: "students",
   searchTerm: ""
@@ -41,9 +43,5 @@ export const appReducer = createReducer(
   on(setCurrentPage, (state: IAppState, props) => ({
     ...state,
     currentPage: props.page
-  })),
-  on(setSearchTerm, (state: IAppState, props) => ({
-    ...state,
-    searchTerm: state.searchTerm
   }))
 );

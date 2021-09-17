@@ -102,6 +102,11 @@ namespace student_listing.Data.DAL.CourseDataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes the course
+        /// </summary>
+        /// <param name="courseId">course id</param>
+        /// <returns>number of rows affected</returns>
         public async Task<int> DeleteCourse(int courseId)
         {
             using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
@@ -111,6 +116,29 @@ namespace student_listing.Data.DAL.CourseDataAccess
                     WHERE CourseId = @CourseId;";
 
                 return await db.ExecuteAsync(sql, new { CourseId = courseId });
+            }
+        }
+
+        /// <summary>
+        /// Searches the courses
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of courses</returns>
+        public async Task<IEnumerable<Course>> SearchCourses(string searchTerm)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                    SELECT
+                    c.CourseId,
+                    c.Name,
+                    c.Description,
+                    CreditHours
+                    FROM dbo.Courses c
+                    WHERE c.Name LIKE @SearchTerm
+                    OR c.Description LIKE @SearchTerm;";
+
+                return await db.QueryAsync<Course>(sql, new { SearchTerm = "%" + searchTerm + "%" });
             }
         }
     }

@@ -53,4 +53,12 @@ export class CourseService {
   public deleteCourse(courseId: number): Observable<IDeleteCourseResult> {
     return this.http.delete<IDeleteCourseResult>(`api/course/${courseId}`);
   }
+
+  /**
+   * Searches the courses
+   * @param searchTerm
+   */
+  public searchCourses(searchTerm: string): Observable<IGetCourseResult> {
+    return this.http.get<IGetCourseResult>(`api/course?searchTerm=${searchTerm}`);
+  }
 }

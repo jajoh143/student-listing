@@ -40,5 +40,12 @@ namespace student_listing.Business.CourseBusiness
         /// <param name="courseId">course id</param>
         /// <returns>If the course was deleted or not</returns>
         Task<bool> DeleteCourse(int courseId);
+
+        /// <summary>
+        /// Searches the courses
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of courses</returns>
+        Task<IEnumerable<Course>> SearchCourses(string searchTerm);
     }
 }

@@ -33,8 +33,12 @@ namespace student_listing.Controllers.StudentController
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<GetStudentList>> Get()
+        public async Task<ActionResult<GetStudentList>> Get([FromQuery] string searchTerm)
         {
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return Ok(new GetStudentList(await _studentBusiness.SearchStudents(searchTerm)));
+            }
             return Ok(new GetStudentList(await _studentBusiness.GetStudentList()));
         }
 

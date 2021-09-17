@@ -39,5 +39,12 @@ namespace student_listing.Data.DAL.CourseDataAccess
         /// <param name="courseId">course id</param>
         /// <returns>if the course was deleted</returns>
         Task<int> DeleteCourse(int courseId);
+
+        /// <summary>
+        /// Searches the courses
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of courses</returns>
+        Task<IEnumerable<Course>> SearchCourses(string searchTerm);
     }
 }

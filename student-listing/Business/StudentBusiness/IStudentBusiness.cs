@@ -39,5 +39,12 @@ namespace student_listing.Business.StudentBusiness
         /// <param name="studentId">student id</param>
         /// <returns>if the student was deleted</returns>
         Task<bool> DeleteStudent(int studentId);
+
+        /// <summary>
+        /// Searches the students in the database
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>List of students</returns>
+        Task<IEnumerable<Student>> SearchStudents(string searchTerm);
     }
 }

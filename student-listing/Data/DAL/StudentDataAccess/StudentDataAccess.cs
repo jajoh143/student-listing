@@ -142,5 +142,29 @@ namespace student_listing.Data.DAL.StudentDataAccess
                 return await db.ExecuteAsync(sql, new { StudentId = studentId });
             }
         }
+
+        /// <summary>
+        /// Searches the students
+        /// </summary>
+        /// <param name="searchTerm">search term</param>
+        /// <returns>list of students</returns>
+        public async Task<IEnumerable<Student>> SearchStudents(string searchTerm)
+        {
+            using (IDbConnection db = new SqlConnection(_configuration.GetConnectionString("DataConnection")))
+            {
+                string sql = @"
+                    SELECT
+                    s.StudentId,
+                    s.FirstName,
+                    s.LastName,
+                    s.Email
+                    FROM dbo.Students s
+                    WHERE s.FirstName LIKE @SearchTerm
+                    OR s.LastName LIKE @SearchTerm
+                    OR s.Email LIKE @SearchTerm;";
+
+                return await db.QueryAsync<Student>(sql, new { SearchTerm = "%" + searchTerm + "%" });
+            }
+        }
     }
 }

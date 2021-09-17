@@ -24,5 +24,5 @@ export const setCurrentPage = createAction(
 
 export const setSearchTerm = createAction(
   "[App] Set Search Term",
-  props<{ searchTerm: string }>
+  props<{ searchTerm: string }>()
 );

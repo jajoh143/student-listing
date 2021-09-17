@@ -34,13 +34,18 @@ namespace student_listing.Controllers.CourseController
         /// <param name="studentId">student id</param>
         /// <returns>List of Courses</returns>
         [HttpGet]
-        public async Task<ActionResult<GetCourseList>> Get([FromQuery] int studentId)
+        public async Task<ActionResult<GetCourseList>> Get([FromQuery] int studentId, [FromQuery] string searchTerm)
         {
             if (studentId > 0)
             {
                 return Ok(new GetCourseList(await _courseBusiness.GetStudentCourseList(studentId)));
-
             }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return Ok(new GetCourseList(await _courseBusiness.SearchCourses(searchTerm)));
+            }
+
             return Ok(new GetCourseList(await _courseBusiness.GetCourseList()));
         }
 

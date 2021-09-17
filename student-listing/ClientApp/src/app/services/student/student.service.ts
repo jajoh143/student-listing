@@ -51,4 +51,12 @@ export class StudentService {
   public deleteStudent(studentId: number): Observable<IDeleteStudentResult> {
     return this.http.delete<IDeleteStudentResult>(`api/student/${studentId}`);
   }
+
+  /**
+   * Searches the students
+   * @param searchTerm - search term
+   */
+  public searchStudents(searchTerm: string): Observable<IGetStudentsResult> {
+    return this.http.get<IGetStudentsResult>(`api/students?searchTerm=${searchTerm}`);
+  }
 }
